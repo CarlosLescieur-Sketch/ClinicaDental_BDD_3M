@@ -157,7 +157,7 @@ namespace ClinicaDental_BDD_3M
         {
             try
             {
-                string quer = "SELECT p.nombre, o.nombre, t.nombre, c.fecha_cita, c.hora, c.tiempoEst FROM cita c, paciente p, odontologos o, tratamientos t WHERE c.id_paciente = p.id_paciente AND c.id_odo = o.id_odo AND c.id_trata = t.id_trata AND estado = 'pendiente' AND c.estadoPagado = 'SIN PAGAR' ORDER BY c.fecha_cita;";
+                string quer = "SELECT c.id_cita AS Cita, p.nombre AS Paciente, o.nombre AS Odontologo, t.nombre AS Tratamiento, c.fecha_cita, c.hora, c.tiempoEst FROM cita c, paciente p, odontologos o, tratamientos t WHERE c.id_paciente = p.id_paciente AND c.id_odo = o.id_odo AND c.id_trata = t.id_trata AND estado = 'pendiente' AND c.estadoPagado = 'SIN PAGAR' ORDER BY c.fecha_cita;";
                 using(MySqlConnection cnc = new MySqlConnection(Conex))
                 {
                     cnc.Open();

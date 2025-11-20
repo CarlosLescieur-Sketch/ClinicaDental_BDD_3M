@@ -80,7 +80,7 @@ namespace ClinicaDental_BDD_3M
         {
             try
             {
-                string query = "SELECT id_paciente, nombre, ape_pat, ape_mat, fecha_nacimiento, alergias, antecedentes, enfermedades FROM paciente WHERE id_paciente = @Id_paciente";
+                string query = "SELECT id_paciente, nombre, ape_pat, ape_mat, fecha_nacimiento, alergias, antecedentes, enfermedades, contacto, email FROM paciente WHERE id_paciente = @Id_paciente";
                 using (MySqlConnection cnc = new MySqlConnection(con))
                 {
                     cnc.Open();
@@ -94,6 +94,9 @@ namespace ClinicaDental_BDD_3M
                                 txtNameP.Text = reader["nombre"].ToString();
                                 txtSurP.Text = reader["ape_pat"].ToString();
                                 txtSurM.Text = reader["ape_mat"].ToString();
+
+                                txtNumCel.Text = reader["contacto"].ToString();
+                                txtEmail.Text = reader["email"].ToString();
 
                                 if (reader["fecha_nacimiento"] != DBNull.Value)
                                 {

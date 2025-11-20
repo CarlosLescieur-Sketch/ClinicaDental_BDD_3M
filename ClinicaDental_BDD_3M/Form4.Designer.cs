@@ -237,7 +237,7 @@
             this.Controls.Add(this.txtSurPOdo);
             this.Controls.Add(this.txtNameOdo);
             this.Name = "Form4";
-            this.Text = "Form4";
+            this.Text = "Menu del Administrador";
             this.Load += new System.EventHandler(this.Form4_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

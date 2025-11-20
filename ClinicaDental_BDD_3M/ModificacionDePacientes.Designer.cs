@@ -293,7 +293,7 @@
             // cmbPac
             // 
             this.cmbPac.FormattingEnabled = true;
-            this.cmbPac.Location = new System.Drawing.Point(355, 32);
+            this.cmbPac.Location = new System.Drawing.Point(359, 32);
             this.cmbPac.Name = "cmbPac";
             this.cmbPac.Size = new System.Drawing.Size(121, 28);
             this.cmbPac.TabIndex = 47;

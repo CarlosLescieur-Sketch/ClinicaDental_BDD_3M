@@ -41,8 +41,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkListArchivosAdj = new System.Windows.Forms.CheckedListBox();
-            this.rdNoArchi = new System.Windows.Forms.RadioButton();
-            this.rdSiArchi = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.txtNameP = new System.Windows.Forms.TextBox();
             this.txtSurP = new System.Windows.Forms.TextBox();
@@ -167,8 +165,6 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.HotTrack;
             this.panel1.Controls.Add(this.chkListArchivosAdj);
-            this.panel1.Controls.Add(this.rdNoArchi);
-            this.panel1.Controls.Add(this.rdSiArchi);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(100, 262);
@@ -183,33 +179,10 @@
             "Radiografias",
             "Fotografias",
             "Recetas"});
-            this.chkListArchivosAdj.Location = new System.Drawing.Point(21, 89);
+            this.chkListArchivosAdj.Location = new System.Drawing.Point(21, 49);
             this.chkListArchivosAdj.Name = "chkListArchivosAdj";
             this.chkListArchivosAdj.Size = new System.Drawing.Size(233, 164);
             this.chkListArchivosAdj.TabIndex = 14;
-            // 
-            // rdNoArchi
-            // 
-            this.rdNoArchi.AutoSize = true;
-            this.rdNoArchi.Location = new System.Drawing.Point(83, 49);
-            this.rdNoArchi.Name = "rdNoArchi";
-            this.rdNoArchi.Size = new System.Drawing.Size(70, 33);
-            this.rdNoArchi.TabIndex = 13;
-            this.rdNoArchi.TabStop = true;
-            this.rdNoArchi.Text = "No";
-            this.rdNoArchi.UseVisualStyleBackColor = true;
-            this.rdNoArchi.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // rdSiArchi
-            // 
-            this.rdSiArchi.AutoSize = true;
-            this.rdSiArchi.Location = new System.Drawing.Point(21, 49);
-            this.rdSiArchi.Name = "rdSiArchi";
-            this.rdSiArchi.Size = new System.Drawing.Size(60, 33);
-            this.rdSiArchi.TabIndex = 12;
-            this.rdSiArchi.TabStop = true;
-            this.rdSiArchi.Text = "Si";
-            this.rdSiArchi.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -407,8 +380,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton rdNoArchi;
-        private System.Windows.Forms.RadioButton rdSiArchi;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtNameP;
         private System.Windows.Forms.TextBox txtSurP;
