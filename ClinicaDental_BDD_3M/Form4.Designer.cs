@@ -236,6 +236,7 @@
             this.Controls.Add(this.txtCedulaPro);
             this.Controls.Add(this.txtSurPOdo);
             this.Controls.Add(this.txtNameOdo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form4";
             this.Text = "Menu del Administrador";
             this.Load += new System.EventHandler(this.Form4_Load);

@@ -214,8 +214,9 @@
             this.Controls.Add(this.cmbtratamiento);
             this.Controls.Add(this.cmbodontologo);
             this.Controls.Add(this.cmbPaciente);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form6";
-            this.Text = "Form6";
+            this.Text = "Registro de cita";
             ((System.ComponentModel.ISupportInitialize)(this.dtGridDatosCitasAnt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

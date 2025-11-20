@@ -39,7 +39,7 @@ namespace ClinicaDental_BDD_3M
 
         private void LlenarComboPaciente()
         {
-            string ConsultaPac = "SELECT Id_paciente, Nombre FROM Paciente";
+            string ConsultaPac = "SELECT p.Id_paciente, p.Nombre FROM Paciente p, Cita c WHERE c.id_paciente = p.id_paciente AND c.estado = 'PENDIENTE'";
 
             try
             {

@@ -57,11 +57,6 @@ namespace ClinicaDental_BDD_3M
                 txtUser.Text = null;
                 txtPassw.Focus();
             }
-
-            else
-            {
-                MessageBox.Show("Contraseña o usuario incorrecto, vuelve a ingresar", "Jeje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
         }
     }
 }

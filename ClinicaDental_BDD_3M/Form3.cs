@@ -77,12 +77,18 @@ namespace ClinicaDental_BDD_3M
             if(result == DialogResult.Yes)
             {
                 InsertarPacientes(nombre, surP, surM, BD, gene, radiograf, fotosgra, recet, alergia, ante, enfer, telefono, email);
+                txtAlerP.Text = null;
+                txtIll.Text = null;
+                txtEmail.Text = null;
+                txtAnte.Text = null;
+                txtFBirth.Text = null;
+                txtNameP.Text = null;
+                txtNumCel.Text = null;
+                txtSurM.Text = null;
+                txtSurP.Text = null;
+                rdMan.Checked = false;
+                rdWoman.Checked = false;
             }
-
-            Form6 form6 = new Form6();
-            this.Hide();
-            form6.ShowDialog();
-            this.Show();
         }
 
 

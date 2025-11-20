@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.IO;
 
 namespace ClinicaDental_BDD_3M
 {
@@ -23,7 +27,6 @@ namespace ClinicaDental_BDD_3M
             dataGridView1.ReadOnly = true;
             LlenarCmbOdo();
 
-            // Suscribir el evento cuando cambia la selección del odontólogo
             cmbMed.SelectedIndexChanged += CmbMed_SelectedIndexChanged;
             cmbpaciAAtender.SelectedIndexChanged += CmbPac_SelectedIndexChannged;
         }
@@ -52,7 +55,6 @@ namespace ClinicaDental_BDD_3M
             }
         }
 
-        // Evento que se dispara cuando cambia la selección del odontólogo
         private void CmbMed_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbMed.SelectedValue != null && cmbMed.SelectedValue.ToString() != "System.Data.DataRowView")
@@ -116,10 +118,8 @@ namespace ClinicaDental_BDD_3M
             }
         }
 
-        // Botón para marcar cita como concluida
         private void button1_Click(object sender, EventArgs e)
         {
-            // Validar que haya una fila seleccionada en el DataGridView
             if (dataGridView1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Por favor, seleccione una cita del listado.",
@@ -129,23 +129,110 @@ namespace ClinicaDental_BDD_3M
                 return;
             }
 
-            // Necesitas agregar id_cita a tu query en LlenandoDataGrid
-            // Y luego obtenerlo así:
-            string idCita = dataGridView1.SelectedRows[0].Cells["id_cita"].Value.ToString();
-
-            modEstado(idCita);
-
-            // Recargar el grid después de modificar
-            if (cmbpaciAAtender.SelectedValue != null)
+            try
             {
-                string idPac = cmbpaciAAtender.SelectedValue.ToString();
-                LlenandoDataGrid(idPac);
-            }
+                // Obtener los datos de la fila seleccionada
+                DataGridViewRow filaSeleccionada = dataGridView1.SelectedRows[0];
+                string idCita = filaSeleccionada.Cells["id_cita"].Value.ToString();
+                string nombrePaciente = filaSeleccionada.Cells["Paciente"].Value.ToString();
+                string apePaterno = filaSeleccionada.Cells["ApellidoPaterno"].Value.ToString();
+                string apeMaterno = filaSeleccionada.Cells["ApellidoMaterno"].Value.ToString();
+                string nombreCompleto = $"{nombrePaciente} {apePaterno} {apeMaterno}";
+                string nombreOdontologo = filaSeleccionada.Cells["Odontologo"].Value.ToString();
+                string fechaCita = Convert.ToDateTime(filaSeleccionada.Cells["fecha_cita"].Value).ToString("dd/MM/yyyy");
+                string horaCita = filaSeleccionada.Cells["hora"].Value.ToString();
+                string costo = "$" + Convert.ToDecimal(filaSeleccionada.Cells["costo"].Value).ToString("N2");
 
-            MessageBox.Show("Cita marcada como concluida correctamente.",
-                           "Éxito",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Information);
+                // Obtener el tratamiento (necesitas agregarlo a tu query)
+                string tratamiento = "Consulta General"; // Si no lo tienes en el query, usa un valor por defecto
+
+                // Generar el PDF antes de modificar el estado
+                GenerarReportePDF(nombreCompleto, nombreOdontologo, tratamiento, fechaCita, horaCita, costo);
+
+                // Modificar el estado
+                modEstado(idCita);
+
+                // Recargar el grid después de modificar
+                if (cmbpaciAAtender.SelectedValue != null)
+                {
+                    string idPac = cmbpaciAAtender.SelectedValue.ToString();
+                    LlenandoDataGrid(idPac);
+                }
+
+                MessageBox.Show("Cita marcada como concluida correctamente y reporte generado.",
+                               "Éxito",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al procesar la cita: " + ex.Message,
+                               "Error",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+            }
+        }
+
+        private void GenerarReportePDF(string nombrePaciente, string nombreOdontologo,
+                                       string tratamiento, string fechaCita,
+                                       string horaCita, string costo)
+        {
+            try
+            {
+                string plantillaHtml = Properties.Resources.plantilla;
+
+                // Reemplazar las variables en la plantilla
+                string htmlFinal = plantillaHtml
+                    .Replace("{{NombreDelPaciente}}", nombrePaciente)
+                    .Replace("{{NombreDelOdontologo}}", nombreOdontologo)
+                    .Replace("{{Tratamiento}}", tratamiento)
+                    .Replace("{{FechaDeCita}}", fechaCita)
+                    .Replace("{{HoraDeConsulta}}", horaCita)
+                    .Replace("{{CostoDeLaCita}}", costo)
+                    .Replace("{{FechaYHoraActual}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+                // Configurar el diálogo para guardar el archivo
+                SaveFileDialog guardarArchivo = new SaveFileDialog();
+                guardarArchivo.Filter = "Archivo PDF|*.pdf";
+                guardarArchivo.Title = "Guardar Reporte de Cita";
+                guardarArchivo.FileName = $"Reporte_Cita_{nombrePaciente.Replace(" ", "_")}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                if (guardarArchivo.ShowDialog() == DialogResult.OK)
+                {
+                    // Crear el documento PDF
+                    Document documento = new Document(PageSize.LETTER);
+                    PdfWriter writer = PdfWriter.GetInstance(documento, new FileStream(guardarArchivo.FileName, FileMode.Create));
+
+                    documento.Open();
+
+                    // Convertir HTML a PDF usando XMLWorkerHelper
+                    using (StringReader sr = new StringReader(htmlFinal))
+                    {
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, documento, sr);
+                    }
+
+                    documento.Close();
+
+                    // Preguntar si desea abrir el archivo
+                    DialogResult resultado = MessageBox.Show(
+                        "El reporte se ha generado correctamente.\n¿Desea abrir el archivo?",
+                        "PDF Generado",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(guardarArchivo.FileName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message,
+                               "Error",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+            }
         }
 
         private void modEstado(string idCita)
@@ -175,9 +262,12 @@ namespace ClinicaDental_BDD_3M
             {
                 string que = @"SELECT c.id_cita,
                      p.nombre AS Paciente, 
+                     p.ape_pat AS ApellidoPaterno,
+                     p.ape_mat AS ApellidoMaterno,
                      o.nombre AS Odontologo, 
                      c.fecha_cita, 
-                     c.hora 
+                     c.hora,
+                     c.costo
               FROM cita c
               JOIN odontologos o ON c.id_odo = o.id_odo
               JOIN paciente p ON c.id_paciente = p.id_paciente

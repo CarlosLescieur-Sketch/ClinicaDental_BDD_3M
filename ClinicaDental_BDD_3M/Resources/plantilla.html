@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Reporte de Cita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            color: #000;
+            margin: 40px;
+        }
+
+        .encabezado {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+        }
+
+            .encabezado h1 {
+                font-size: 20pt;
+                font-weight: bold;
+                margin: 0 0 5px 0;
+            }
+
+            .encabezado p {
+                font-size: 11pt;
+                color: #333;
+                margin: 0;
+            }
+
+        .seccion-titulo {
+            font-size: 13pt;
+            font-weight: bold;
+            background-color: #e8e8e8;
+            padding: 8px 10px;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 8px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .campo-etiqueta {
+            font-weight: bold;
+            width: 180px;
+        }
+
+        .campo-valor {
+            padding-left: 10px;
+        }
+
+        .costo-total {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid #000;
+            text-align: right;
+        }
+
+        .costo-etiqueta {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .costo-valor {
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .firma-seccion {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .firma-linea {
+            width: 300px;
+            margin: 0 auto;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+            font-size: 11pt;
+        }
+
+        .pie-pagina {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            font-size: 10pt;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="encabezado">
+        <h1>REPORTE DE CITA ODONTOLÓGICA</h1>
+        <p>Comprobante de Consulta</p>
+    </div>
+
+    <div class="seccion-titulo">DATOS DEL PACIENTE</div>
+    <table>
+        <tr>
+            <td class="campo-etiqueta">Nombre del Paciente:</td>
+            <td class="campo-valor">{{NombreDelPaciente}}</td>
+        </tr>
+    </table>
+
+    <div class="seccion-titulo">INFORMACIÓN DE LA CITA</div>
+    <table>
+        <tr>
+            <td class="campo-etiqueta">Odontólogo:</td>
+            <td class="campo-valor">{{NombreDelOdontologo}}</td>
+        </tr>
+        <tr>
+            <td class="campo-etiqueta">Tratamiento:</td>
+            <td class="campo-valor">{{Tratamiento}}</td>
+        </tr>
+        <tr>
+            <td class="campo-etiqueta">Fecha de Cita:</td>
+            <td class="campo-valor">{{FechaDeCita}}</td>
+        </tr>
+        <tr>
+            <td class="campo-etiqueta">Hora de Consulta:</td>
+            <td class="campo-valor">{{HoraDeConsulta}}</td>
+        </tr>
+    </table>
+
+    <div class="costo-total">
+        <span class="costo-etiqueta">COSTO TOTAL:</span>
+        <span class="costo-valor">{{CostoDeLaCita}}</span>
+    </div>
+
+    <div class="firma-seccion">
+        <div class="firma-linea">
+            Firma del Odontólogo
+        </div>
+    </div>
+
+    <div class="pie-pagina">
+        <p>Fecha y hora de emisión: {{FechaYHoraActual}}</p>
+        <p>Este documento es un comprobante oficial de la consulta realizada</p>
+    </div>
+</body>
+</html>
