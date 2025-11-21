@@ -13,7 +13,7 @@ namespace ClinicaDental_BDD_3M
 {
     public partial class Form5 : Form
     {
-        string ConexionMySQL = "server=localhost;database=clinicadental_3m_equi3;port=3306;uid=root;pwd=SyecMed&c1000";
+        string ConexionMySQL = "server=AlexTUF;database=clinicadental_3m_equi3;port=3306;Uid=Carlos;pwd=SyecMed&c1000";
         public Form5()
         {
             InitializeComponent();

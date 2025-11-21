@@ -15,7 +15,7 @@ namespace ClinicaDental_BDD_3M
 {
     public partial class Form4 : Form
     {
-        string conexionSql = "Server=localhost;Database=clinicadental_3m_equi3;port=3306;Uid=root;pwd=SyecMed&c1000";
+        string conexionSql = "server=AlexTUF;database=clinicadental_3m_equi3;port=3306;Uid=Carlos;pwd=SyecMed&c1000";
         public Form4()
         {
             InitializeComponent();

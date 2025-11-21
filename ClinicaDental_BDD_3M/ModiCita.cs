@@ -16,7 +16,7 @@ namespace ClinicaDental_BDD_3M
 {
     public partial class ModiCita : Form
     {
-        string Conex = "server=localhost;database=clinicadental_3m_equi3;port=3306;Uid=root;pwd=SyecMed&c1000";
+        string Conex = "server=AlexTUF;database=clinicadental_3m_equi3;port=3306;Uid=Carlos;pwd=SyecMed&c1000";
         public ModiCita()
         {
             InitializeComponent();

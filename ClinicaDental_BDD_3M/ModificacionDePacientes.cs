@@ -13,7 +13,7 @@ namespace ClinicaDental_BDD_3M
 {
     public partial class ModificacionDePacientes : Form
     {
-        string con = "server=localhost;database=clinicadental_3m_equi3;port=3306;Uid=root;pwd=SyecMed&c1000";
+        string con = "server=AlexTUF;database=clinicadental_3m_equi3;port=3306;Uid=Carlos;pwd=SyecMed&c1000";
         public ModificacionDePacientes()
         {
             InitializeComponent();
